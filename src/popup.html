@@ -1,0 +1,130 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title></title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 100%;
+        width: 500px;
+        height: 700px;
+      }
+      input {
+        font-size: 100%;
+        width: 400px;
+      }
+      textarea {
+        font-size: 100%;
+        width: 400px;
+      }
+      .comments {
+        font-size: 50%;
+        /*background-color: #888888;*/
+      }
+      .title {
+        font-size: 50%;
+        /*background-color: #888888;*/
+      }
+      .status {
+        font-size: 50%;
+        background-color: #bbbbbb;
+      }
+    </style>
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+    <!-- <script src="jquery.min.js"></script> -->
+    <script src="popup.js"></script>
+  </head>
+
+  <body>
+
+  <div>
+    <table>
+
+    <tr>
+    <td>
+    <button id="ClipToAnki">Clip to Anki</button>
+    </td>
+    <td>
+    <input id="status" class="status" readonly placeholder="Loading content..."></input>
+    </td>
+    </tr>
+
+    <tr>
+    <td>Front:</td>
+    <td>
+    <textarea id="front" class="front" rows=4>
+    </textarea>
+    </td>
+    </tr>
+
+    <tr>
+    <td>Back:</td>
+    <td>
+    <textarea id="summary" class="summary"
+            rows=15 placeholder="nothing">
+    </textarea>
+    </td>
+    </tr>
+
+    <tr>
+    <td>Tags:</td>
+    <td><input id="tags" class="tags"></input></td>
+    </tr>
+
+    <tr>
+    <td>Journal:</td>
+    <td><input id="journal" class="journal" value="arxiv"></input></td>
+    </tr>
+
+    <tr>
+    <td>Authors:</td>
+    <td>
+    <textarea id="authors" class="authors"></textarea>
+    </td>
+    </tr>
+
+    <tr>
+    <td>Updated:</td>
+    <td><textarea id="updated" class="updated" rows=1></textarea></td>
+    </tr>
+
+    <tr>
+    <td>Published:</td>
+    <td><textarea id="published" class="published" rows=1></textarea></td>
+    </tr>
+
+    <tr>
+    <td>Title:</td>
+    <td><textarea id="title" class="title" rows=2>
+  </textarea></td>
+    </tr>
+
+    <tr>
+    <td>Comments:</td>
+    <td><textarea id="comments" class="comments" rows=2>
+  </textarea></td>
+    </tr>
+
+    <tr>
+    <td>Links:</td>
+    <td><a id="html" class="html" href="">html</a>
+  &nbsp&nbsp
+    <a id="pdf" class="pdf" href="">pdf</a></td>
+    </tr>
+
+    </table>
+  </div>
+
+  </body>
+</html>

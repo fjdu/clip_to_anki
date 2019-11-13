@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+
+  "name": "Clip to Anki",
+  "short_name": "Clip to Anki",
+  "description": "Clip page content to Anki (currently supported: arxiv).  A running anki-connect (see https://foosoft.net/projects/anki-connect/index.html) listening to 127.0.0.1:8765 is required.",
+  "version": "0.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Clip to Anki"
+  },
+
+  "permissions": [
+    "tabs",
+    "storage",
+    "https://ajax.googleapis.com/",
+    "https://arxiv.org/",
+    "https://*.adsabs.harvard.edu/"
+  ],
+
+  "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+              "windows": "Alt+A",
+              "mac": "Alt+A",
+              "chromeos": "Alt+A",
+              "linux": "Alt+A"
+            }
+          }
+  }
+}
