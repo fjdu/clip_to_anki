@@ -179,60 +179,6 @@ function invoke(action, version, params={}) {
 }
 
 
-// function connectAnki(action, version, params={}, callback=null) {
-//   var x = new XMLHttpRequest();
-//   x.addEventListener('error', () => reject('failed to issue request'));
-//   x.addEventListener('load', () => {
-//       try {
-//           const response = JSON.parse(x.responseText);
-//           if (Object.getOwnPropertyNames(response).length != 2) {
-//               throw 'response has an unexpected number of fields';
-//           }
-//           if (!response.hasOwnProperty('error')) {
-//               throw 'response is missing required error field';
-//           }
-//           if (!response.hasOwnProperty('result')) {
-//               throw 'response is missing required result field';
-//           }
-//           if (response.error) {
-//               throw response.error;
-//           }
-//           if (callback) {
-//             callback(response.result);
-//           }
-//           return response.result;
-//       } catch (e) {
-//           throw e;
-//       }
-//   });
-// 
-//   try {
-//     x.open('POST', 'http://127.0.0.1:8765');
-//     x.send(JSON.stringify({action, version, params}));
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-
-// function setDecks() {
-//   connectAnki("deckNames", 6, params={},
-//     callback=function(res) {
-//       moveElementToBegin(res, 'Papers');
-//       addItemsToSelect(document.getElementById("deckName"), res);
-//     });
-// }
-// 
-// 
-// function setModels() {
-//   connectAnki("modelNames", 6, params={},
-//     callback=function(res) {
-//       moveElementToBegin(res, 'Paper');
-//       addItemsToSelect(document.getElementById("modelName"), res);
-//     });
-// }
-
-
 function moveElementToBegin(L, e) {
   var idx = L.indexOf(e);
   if (idx == -1) {
