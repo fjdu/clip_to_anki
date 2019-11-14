@@ -12,13 +12,17 @@
         font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
         font-size: 100%;
         width: 500px;
-        height: 700px;
+        height: 750px;
       }
       input {
         font-size: 100%;
         width: 400px;
       }
       textarea {
+        font-size: 100%;
+        width: 400px;
+      }
+      select {
         font-size: 100%;
         width: 400px;
       }
@@ -56,15 +60,14 @@
     <button id="ClipToAnki">Clip to Anki</button>
     </td>
     <td>
-    <input id="status" class="status" readonly placeholder="Loading content..."></input>
+    <input type="text" id="status" class="status" readonly placeholder="Loading content..."></input>
     </td>
     </tr>
 
     <tr>
     <td>Front:</td>
     <td>
-    <textarea id="front" class="front" rows=4>
-    </textarea>
+    <textarea id="front" class="front" rows=4></textarea>
     </td>
     </tr>
 
@@ -72,19 +75,18 @@
     <td>Back:</td>
     <td>
     <textarea id="summary" class="summary"
-            rows=15 placeholder="nothing">
-    </textarea>
+            rows=15 placeholder=""></textarea>
     </td>
     </tr>
 
     <tr>
     <td>Tags:</td>
-    <td><input id="tags" class="tags"></input></td>
+    <td><input type="text" id="tags" class="tags"></input></td>
     </tr>
 
     <tr>
     <td>Journal:</td>
-    <td><input id="journal" class="journal" value="arxiv"></input></td>
+    <td><input type="text" id="journal" class="journal" value="arxiv"></input></td>
     </tr>
 
     <tr>
@@ -92,6 +94,21 @@
     <td>
     <textarea id="authors" class="authors"></textarea>
     </td>
+    </tr>
+
+    <tr>
+    <td>Deck:</td>
+    <td><select id="deckName" class="deckName"></select></td>
+    </tr>
+
+    <tr>
+    <td>Type:</td>
+    <td><select id="modelName" class="modelName"></select></td>
+    </tr>
+
+    <tr>
+    <td>Fields:</td>
+    <td><input type="text" id="fields" class="fields" readonly></input></td>
     </tr>
 
     <tr>
@@ -106,14 +123,12 @@
 
     <tr>
     <td>Title:</td>
-    <td><textarea id="title" class="title" rows=2>
-  </textarea></td>
+    <td><textarea id="title" class="title" rows=2></textarea></td>
     </tr>
 
     <tr>
     <td>Comments:</td>
-    <td><textarea id="comments" class="comments" rows=2>
-  </textarea></td>
+    <td><textarea id="comments" class="comments" rows=2></textarea></td>
     </tr>
 
     <tr>
