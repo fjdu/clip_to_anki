@@ -245,7 +245,7 @@ async function clipToAnki() {
 }
 
 
-function start() {
+function retrievePageInfo() {
   chrome.tabs.query({active: true, currentWindow: true},
     function(tabs) {
       var tab = tabs[0];
@@ -311,11 +311,102 @@ function setUpAnkiDeckInfo() {
 }
 
 
-// invoke("getTags", 6).then(function(r) {ankiTags = r;});
+function getCurrentTags() {
+  return document.getElementById("tags").value.trim().split(/\s+/);
+}
+
+
+function setTags(t) {
+  return document.getElementById("tags").value = t.join(' ');
+}
+
+
+var ankiTags = [];
+var previousTags = [];
+var currentTags = [];
+var candidate=[];
+var iDiff=-1;
+const maxCandidate=8;
+
+
+function inputTags(ev) {
+  currentTags = getCurrentTags();
+  if (ev.keyCode == 32) {
+    previousTags = currentTags;
+    candidate = [];
+    document.getElementById("status").value = "";
+    return;
+  }
+  if (ev.keyCode == 13) {
+    if (candidate) {
+      currentTags[iDiff] = candidate[0];
+      setTags(currentTags);
+      previousTags = currentTags;
+      candidate = [];
+      document.getElementById("status").value = "";
+    }
+    return;
+  }
+  if (ev.key == ']') {
+    var t = candidate.shift();
+    candidate.push(t);
+    document.getElementById("status").value = `${candidate}`;
+    return;
+  }
+  if (ev.key == '[') {
+    var t = candidate.pop();
+    candidate.unshift(t);
+    document.getElementById("status").value = `${candidate}`;
+    return;
+  }
+  var len=Math.max(currentTags.length, previousTags.length);
+  var dif = '';
+  for (var i=0; i<len; ++i) {
+    if (currentTags[i] != previousTags[i]) {
+      dif = currentTags[i];
+      iDiff = i;
+      break;
+    }
+  }
+  if (dif) {
+    dif = dif.toLowerCase();
+    candidate = [];
+    for (var i in ankiTags) {
+      if (ankiTags[i].toLowerCase().startsWith(dif)) {
+        var already = false;
+        for (var j in currentTags) {
+          if (currentTags[j] === ankiTags[i]) {
+            already = true;
+            break;
+          }
+        }
+        if (!already) {
+          candidate.push(ankiTags[i]);
+        }
+      }
+      if (candidate.length > maxCandidate) {
+        break;
+      }
+    }
+  }
+  if (candidate) {
+    document.getElementById("status").value = `${candidate}`;
+    previousTags = currentTags;
+  }
+}
+
+
+invoke("getTags", 6).then(
+  function(r) {
+    ankiTags = r;
+    document.getElementById("tags").addEventListener("keyup", inputTags);
+  });
 
 document.addEventListener('DOMContentLoaded',
 function() {
+  document.getElementById("status").value = 'Loading...';
   setUpAnkiDeckInfo();
-  start();
+  retrievePageInfo();
+  previousTags = getCurrentTags();
   document.getElementById("ClipToAnki").addEventListener("click", clipToAnki);
 });
