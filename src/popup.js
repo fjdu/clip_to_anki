@@ -12,14 +12,15 @@ function addItemsToSelect(e, items) {
 
 function getSite(url) {
   regexs = {
-    'arxiv': /http[s]*:\/\/arxiv\.org\/.*/,
-    'ads': /http[s]*:\/\/.*.adsabs\.harvard\.edu\/.*/,
+    'arxiv': /http[s]*:\/\/arxiv\.org\/.*/
+    // 'ads': /http[s]*:\/\/.*.adsabs\.harvard\.edu\/.*/,
   };
   for (r in regexs) {
     if (url.match(regexs[r])) {
       return r;
     }
   }
+  return 'other';
 }
 
 
@@ -245,6 +246,12 @@ async function clipToAnki() {
 }
 
 
+function getArticleID(url) {
+  reg = /http[s]*:\/\/arxiv\.org\/(abs|pdf)\/(.*)/
+  return url.match(reg)[2].replace('.pdf', '');;
+}
+
+
 function retrievePageInfo() {
   chrome.tabs.query({active: true, currentWindow: true},
     function(tabs) {
@@ -255,10 +262,16 @@ function retrievePageInfo() {
         document.getElementById("status").value = "Site not supported: " + url;
         return;
       }
+      if (site == 'other') {
+        document.getElementById("front").value = tab.title;
+        document.getElementById("title").value = tab.title;
+        document.getElementById("summary").value = tab.title;
+        document.getElementById("html").setAttribute("href", url);
+        document.getElementById("status").value = "Ready";
+        return;
+      }
 
-      var url_parts = url.split('/');
-      var len = url_parts.length;
-      var id = url_parts[len-1].replace('.pdf', '');
+      var id = getArticleID(url);
 
       var x = new XMLHttpRequest();
       x.onreadystatechange = function() {
